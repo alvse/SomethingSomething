@@ -1,0 +1,71 @@
+<%- include ../layouts/header.ejs %>
+<aside class="sidebar">
+    <table>
+    <% if(menu.length){
+        %>
+            
+        <%
+        for(var i = 0;i < menu.length;i++) { %>
+        <tr>
+            <td class="sideMenuHiddenInfo"><%=(i+1)%></td>
+            <% if(menu[i].ExternalLink==0) { %>
+                <td class="sideMenuButton" onClick="gotoReport('<%=menu[i].reportName%>')"><%=menu[i].reportName%></td>
+            <% } 
+            else { %>
+                <td class="sideMenuButton" onClick="openReport('<%=menu[i].reportURL%>')"><%=menu[i].reportName%></td>
+            <% } %>
+        </tr>
+        <% }
+        } else { %>
+        <tr>
+            <td colspan="6">No Menu Items</td>
+        </tr>
+        <% } %>
+    </table>    
+</aside>
+<main class="main">
+<div class="page-data">
+    <div class="data-btn">
+       <% if(data == 'No Data') { %>
+        Select Another Report
+       <% }
+       else { 
+        %>
+
+       
+        <table id="dataTable" >
+                <thead>
+            <tr>
+                <th scope="col">DTE</th>
+                <th scope="col">MSA</th>
+                <th scope="col">AdjIncoming</th>
+                <th scope="col">Proc</th>
+                <th scope="col">WoH</th>
+                <th scope="col">CalcAHT</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%
+        for(var i = 0; i < data.length; i++) {
+        %>
+            <tr>
+                <td><% var dte=new Date(data[i].DTE) %>
+                <%= dte.toLocaleDateString('en-UK')%>
+                </td>
+                <td><%= data[i].MSA%></td>
+                <td><%= data[i].AdjIncoming%></td>
+                <td><%= data[i].Proc%></td>
+                <td><%= data[i].WoH%></td>
+                <td><%= data[i].CalcAHT%></td>
+            </tr>
+        <% } %>
+    </tbody>
+        </table>
+       <% } %>
+    </div>
+    <div class="data-table">
+        
+    </div>
+</div>
+
+<%- include ../layouts/footer.ejs %>
